@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { oneReducer, twoReducer } from "./reducers";
+import { timerReducer, twoReducer } from "./reducers";
 
 const rootReducer = {
-    one: oneReducer,
+    timer: timerReducer,
     two: twoReducer,
 }
 

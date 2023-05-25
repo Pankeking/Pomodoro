@@ -1,28 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const oneSlice = createSlice({
-    name: "one",
+const timerSlice = createSlice({
+    name: "timer",
     initialState: {
-        prop1: "",
-        prop2: ""
+        time: 1500,
+        isRunning: true
     },
     reducers: {
-        function1: (state, action) => {
-            state.prop1 = action.payload;
+        startTimer: (state) => {
+            state.isRunning = true;
         },
 
-        function2: (state, action) => {
-            state.prop2 = action.payload + state.prop1;
+        stopTimer: (state) => {
+            state.isRunning = false;
         },
 
-        function3: (state) => {
-            state.prop1 = "";
-            state.prop2 = "";
+        resetTimer: (state) => {
+            state.isRunning = false;
+            state.time = 1500;
         },
+        tickTimer: (state) => {
+            if (state.time > 0) {
+                state.time -= 1;
+            }
+        }
     },
 });
 
-export const { function1, function2, function3 } = oneSlice.actions;
-export const oneReducer = oneSlice.reducer;
+export const { startTimer, stopTimer, resetTimer, tickTimer } = timerSlice.actions;
+export const timerReducer = timerSlice.reducer;
 
-export const twoReducer = 1;
+export const twoReducer = 2;
