@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startTimer, stopTimer, resetTimer, tickTimer } from '../redux/reducers';
+import { startTimer, stopTimer, resetTimer, tickTimer, tickPause } from '../redux/reducers';
 
 
 function Time() {
 
     const dispatch = useDispatch();
-    const { time, isRunning} = useSelector((state) => state.timer);
+    const { workTime, isWorking, isPausing, pauseTime} = useSelector((state) => state.timer);
 
     const handleStart = () => {
         dispatch(startTimer());
@@ -17,20 +17,22 @@ function Time() {
     const handleReset = () => {
         dispatch(resetTimer());
     }
-    const handleTick = () => {
-        dispatch(tickTimer());
-    }
+    
 
     useEffect(()=> {
         let timerId;
 
-        if(isRunning) {
+        if(isWorking) {
             timerId = setInterval(() => {
                 dispatch(tickTimer());
             }, 1000)
+        } else if (isPausing) {
+            timerId = setInterval(() => {
+                dispatch(tickPause());
+            }, 1000)
         }
         return () => clearInterval(timerId);
-    }, [dispatch, isRunning])
+    }, [dispatch, isWorking, isPausing])
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -40,15 +42,20 @@ function Time() {
 
     return (
         <>
-            <div>{formatTime(time)}</div>
+            <div id="time-left">{(isWorking || workTime > 0) ? `Work left  ${formatTime(workTime)}` : (isPausing || pauseTime > 0) ? `Pause left ${formatTime(pauseTime)}` : "Finished" }</div>
+            {/*
+            <div>{isWorking ? "working":"not Working"}</div>
+            <div>{isPausing ? "pausing":"not pausing"}</div>
+            */}
             <div className="flex justify-center mt-4">
-                {!isRunning ? (
+                {!isWorking && !isPausing && (
                     <button     
                         className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         onClick={handleStart}>
                         Play
                     </button>
-                ) : (
+                )} 
+                {(isWorking || isPausing) && (
                     <button 
                         className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
                         onClick={handleStop}>
@@ -60,6 +67,9 @@ function Time() {
                 onClick={handleReset}>
                 Reset
             </button>
+            {workTime}
+            <div></div>
+            {pauseTime}
         </>
     );
 }
