@@ -60,24 +60,25 @@ function Time() {
 
     return (
         <>
-            <div>{(isWorking || workTime > 0) 
+            <div>{(isWorking || (!isPausing && workTime > 0)) 
             ? (<div className="flex justify-center">
                 <div id="timer-label" className="mx-4">Work Left</div>
                 <div id="time-left">{formatTime(workTime)}</div>
                </div>)
-            : (isPausing || pauseTime > 0) 
+            : (isPausing || (!isWorking && pauseTime > 0)) 
             ? (<div className="flex justify-center">
                 <div id="timer-label" className="mx-4">Pause Left</div>
                 <div id="time-left">{formatTime(pauseTime)}</div>
                </div>) 
-            : "Finished" }</div>
+            : (<div id="time-left">{formatTime(workTime)}</div>) } </div>
             {/*
             <div>{isWorking ? "working":"not Working"}</div>
             <div>{isPausing ? "pausing":"not pausing"}</div>
             */}
-            <div id="start_stop" className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4">
                 {!isWorking && !isPausing && (
-                    <button     
+                    <button
+                        id="start_stop"     
                         className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         onClick={handleStart}>
                         Play
@@ -85,6 +86,7 @@ function Time() {
                 )} 
                 {(isWorking || isPausing) && (
                     <button 
+                        id="start_stop"
                         className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
                         onClick={handleStop}>
                         Stop

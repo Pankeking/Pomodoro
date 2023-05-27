@@ -42,17 +42,19 @@ const timerSlice = createSlice({
             if (state.workTime > 0) {
                 state.workTime -= 1;
             } else if (state.workTime === 0) {
-                state.isPausing = true;
                 state.isWorking = false;
+                state.isPausing = true;
             }
         },
         tickPause: (state) => {
             if(state.pauseTime > 0) {
                 state.pauseTime -= 1
             } 
-            else {
-                state.isWorking = false;
+            else if (state.pauseTime === 0) {
                 state.isPausing = false;
+                state.workTime = state.workSetting * 60;
+                state.pauseTime = state.pauseSetting * 60;
+                state.isWorking = true;
             }
         },
 
