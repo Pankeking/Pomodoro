@@ -11,6 +11,7 @@ const timerSlice = createSlice({
         pauseSetting: 5,
         isWorking: false,
         isPausing: false,
+        timerFinished: false,
     },
     reducers: {
         // Main Timer Usage
@@ -42,24 +43,40 @@ const timerSlice = createSlice({
         // Tickers
         tickTimer: (state) => {
             if (state.workTime > 0) {
+                state.timerFinished = false;
                 state.workTime -= 1;
             } else if (state.workTime === 0) {
                 state.isWorking = false;
+                // Start Pause
                 state.isPausing = true;
+                // Sound Beep
+                state.timerFinished = true;
             }
         },
         tickPause: (state) => {
             if(state.pauseTime > 0) {
+                state.timerFinished = false;
                 state.pauseTime -= 1
             } 
             else if (state.pauseTime === 0) {
                 state.isPausing = false;
-
+                // Sound Beep
+                state.timerFinished = true;
+                // Start Again
                 state.workTime = state.workSetting * 60;
                 state.pauseTime = state.pauseSetting * 60;
                 state.isWorking = true;
             }
         },
+
+        // Sound
+        setTimerFinished: (state) => {
+            state.timerFinished = true;
+        },
+        resetTimerFinished: (state) => {
+            state.timerFinished = false;
+        },
+
 
         // Settings
         workIncrease: (state) => {
@@ -95,7 +112,7 @@ const timerSlice = createSlice({
 export const { 
     startTimer, stopTimer, resetTimer, tickTimer, tickPause,
     workIncrease, workDecrease, pauseIncrease, pauseDecrease,
-    confirmSettings,
+    confirmSettings, setTimerFinished, resetTimerFinished,
 } = timerSlice.actions;
 export const timerReducer = timerSlice.reducer;
 

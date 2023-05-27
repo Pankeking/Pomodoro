@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startTimer, stopTimer, resetTimer,
-     tickTimer, tickPause
+     tickTimer, tickPause, setTimerFinished
      } from '../redux/reducers';
 
 
@@ -9,6 +9,7 @@ function Time() {
 
     const dispatch = useDispatch();
     const { workTime, isWorking, isPausing, pauseTime } = useSelector((state) => state.timer);
+
 
     const handleStart = () => {
         dispatch(startTimer());
@@ -19,24 +20,33 @@ function Time() {
     const handleReset = () => {
         dispatch(resetTimer());
     }
+    
    
     
     
 
-    useEffect(()=> {
+    useEffect(() => {
         let timerId;
 
-        if(isWorking) {
+        if (isWorking) {
             timerId = setInterval(() => {
                 dispatch(tickTimer());
+                if (workTime === 0) {
+                    dispatch(setTimerFinished());
+                }
             }, 1000)
         } else if (isPausing) {
             timerId = setInterval(() => {
                 dispatch(tickPause());
+                if (pauseTime === 0) {
+                    dispatch(setTimerFinished());
+                }
             }, 1000)
         }
-        return () => clearInterval(timerId);
-    }, [dispatch, isWorking, isPausing])
+        return () => {
+            clearInterval(timerId)
+        };
+    }, [dispatch, isWorking, isPausing, workTime, pauseTime])
 
     useEffect(() => {
         dispatch(resetTimer())
@@ -83,10 +93,6 @@ function Time() {
                 onClick={handleReset}>
                 Reset
             </button>
-           
-            <audio id="beep"
-				    src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
-			/>
         </>
     );
 }
