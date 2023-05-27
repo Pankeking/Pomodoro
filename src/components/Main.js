@@ -1,5 +1,6 @@
 import React from "react";
 import Time from "./Time"
+import Settings from "./Settings";
 
 function Main() {
     return (
@@ -7,6 +8,7 @@ function Main() {
                         text-teal-300 text-6xl font-bold">
             <h1 className="text-teal-300 text-6xl font-bold">Pomodoro Timer</h1>
             <Time />
+            <Settings />
         </div>
     );
 }

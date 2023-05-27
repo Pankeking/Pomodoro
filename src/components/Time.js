@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startTimer, stopTimer, resetTimer,
-     tickTimer, tickPause, workIncrease, workDecrease,
-      pauseDecrease, pauseIncrease,
-       confirmSettings } from '../redux/reducers';
+     tickTimer, tickPause
+     } from '../redux/reducers';
 
 
 function Time() {
 
     const dispatch = useDispatch();
-    const { workTime, isWorking, isPausing, pauseTime, workSetting, pauseSetting} = useSelector((state) => state.timer);
+    const { workTime, isWorking, isPausing, pauseTime } = useSelector((state) => state.timer);
 
     const handleStart = () => {
         dispatch(startTimer());
@@ -20,21 +19,8 @@ function Time() {
     const handleReset = () => {
         dispatch(resetTimer());
     }
-    const increaseWorkHandler = () => {
-        dispatch(workIncrease());
-    }
-    const decreaseWorkHandler = () => {
-        dispatch(workDecrease());
-    }
-    const increasePauseHandler = () => {
-        dispatch(pauseIncrease());
-    }
-    const decreasePauseHandler = () => {
-        dispatch(pauseDecrease());
-    }
-    const confirmSettingsHandler = () => {
-        dispatch(confirmSettings());
-    }
+   
+    
     
 
     useEffect(()=> {
@@ -51,6 +37,10 @@ function Time() {
         }
         return () => clearInterval(timerId);
     }, [dispatch, isWorking, isPausing])
+
+    useEffect(() => {
+        dispatch(resetTimer())
+    }, [dispatch])
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -71,10 +61,6 @@ function Time() {
                 <div id="time-left">{formatTime(pauseTime)}</div>
                </div>) 
             : (<div id="time-left">{formatTime(workTime)}</div>) } </div>
-            {/*
-            <div>{isWorking ? "working":"not Working"}</div>
-            <div>{isPausing ? "pausing":"not pausing"}</div>
-            */}
             <div className="flex justify-center mt-4">
                 {!isWorking && !isPausing && (
                     <button
@@ -97,31 +83,10 @@ function Time() {
                 onClick={handleReset}>
                 Reset
             </button>
-            <h2>Settings</h2>
-            <div>
-                <div id="session-label">
-                    Work length
-                </div>
-                <div className="flex justify-center">
-                   <button id="session-increment" onClick={increaseWorkHandler}>+</button>
-                   <div className="mx-4" id="session-length">{workSetting}</div>
-                   <button id="session-decrement" onClick={decreaseWorkHandler}>-</button>
-                </div>
-            </div>
-            <div>
-                <div id="break-label">
-                    Pause length
-                </div>
-                <div className="flex justify-center px-4">
-                    <button id="break-increment" onClick={increasePauseHandler}>+</button>
-                     <div className="mx-4" id="break-length">{pauseSetting}</div>
-                    <button id="break-decrement" onClick={decreasePauseHandler}>-</button>
-                </div>
-            </div>
-            <button className="mt-5 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-700"
-                    onClick={confirmSettingsHandler}>
-                Confirm Settings
-            </button>
+           
+            <audio id="beep"
+				    src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+			/>
         </>
     );
 }

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 const timerSlice = createSlice({
     name: "timer",
     initialState: {
@@ -52,6 +54,7 @@ const timerSlice = createSlice({
             } 
             else if (state.pauseTime === 0) {
                 state.isPausing = false;
+
                 state.workTime = state.workSetting * 60;
                 state.pauseTime = state.pauseSetting * 60;
                 state.isWorking = true;
