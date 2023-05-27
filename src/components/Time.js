@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { flushSync } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { startTimer, stopTimer, resetTimer,
      tickTimer, tickPause, setTimerFinished
@@ -12,13 +13,19 @@ function Time() {
 
 
     const handleStart = () => {
-        dispatch(startTimer());
+        flushSync(() => {
+            dispatch(startTimer());
+        })
     }
     const handleStop = () => {
-        dispatch(stopTimer());
+        flushSync(() => {
+            dispatch(stopTimer());
+        })
     }
     const handleReset = () => {
-        dispatch(resetTimer());
+        flushSync(() => {
+            dispatch(resetTimer());
+        })
     }
     
    
@@ -49,7 +56,7 @@ function Time() {
     }, [dispatch, isWorking, isPausing, workTime, pauseTime])
 
     useEffect(() => {
-        dispatch(resetTimer())
+        dispatch(resetTimer());
     }, [dispatch])
 
     const formatTime = (seconds) => {
