@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { startTimer, stopTimer, resetTimer,
-     tickTimer, tickPause, setTimerFinished
+     tickTimer, tickPause, setTimerFinished, resetTimerFinished
      } from '../redux/reducers';
 
 
@@ -20,6 +20,12 @@ function Time() {
     }
     const handleReset = () => {
         dispatch(resetTimer());
+        const audio = document.getElementById("beep");
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+        dispatch(resetTimerFinished());
     }
     
 
@@ -30,14 +36,16 @@ function Time() {
             timerId = setInterval(() => {
                 dispatch(tickTimer());
                 if (workTime === 0) {
-                    dispatch(setTimerFinished());
+                    //dispatch(setTimerFinished());
+                    
                 }
             }, 1000)
         } else if (isPausing) {
             timerId = setInterval(() => {
                 dispatch(tickPause());
                 if (pauseTime === 0) {
-                    dispatch(setTimerFinished());
+                    //dispatch(setTimerFinished());
+                    
                 }
             }, 1000)
         }

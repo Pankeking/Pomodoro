@@ -1,29 +1,34 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import beepSound from "./beepSound.wav"
-import { resetTimerFinished } from "../redux/reducers";
+//import { resetTimerFinished } from "../redux/reducers";
 
 function Sound() {
 
-    const dispatch = useDispatch();
-    const timerFinished = useSelector((state) => state.timer.timerFinished)
+    const { timerFinished } = useSelector((state) => state.timer);
 
     useEffect(() => {
         if (timerFinished) {
-            const audio = new Audio(beepSound);
-            audio.play()
-        }
+            const audio = document.getElementById("beep");
+            if(audio) {
+                audio.play().catch((error) => {
+                    console.error("failed to play audio", error);
+                })
+            }
+        } 
     }, [timerFinished]);
 
-    useEffect(() => {
-        dispatch(resetTimerFinished());
-    }, [dispatch])
+
+
+    
 
     return (
         <>
-            <audio id="beep"
-				    src={beepSound}
-			/>
+            <audio id="beep" 
+                    autoPlay={true} 
+                    src={beepSound}
+                    
+            />
         </>
     );
 }

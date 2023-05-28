@@ -35,6 +35,9 @@ const timerSlice = createSlice({
         resetTimer: (state) => {
             state.isWorking = false;
             state.isPausing = false;
+
+            state.timerFinished = false;
+
             state.workSetting = 25;
             state.pauseSetting = 5;
             state.workTime = state.workSetting * 60;
@@ -44,7 +47,6 @@ const timerSlice = createSlice({
         // Tickers
         tickTimer: (state) => {
             if (state.workTime > 0) {
-                state.timerFinished = false;
                 state.workTime -= 1;
             } else if (state.workTime === 0) {
                 state.isWorking = false;
@@ -56,7 +58,6 @@ const timerSlice = createSlice({
         },
         tickPause: (state) => {
             if(state.pauseTime > 0) {
-                state.timerFinished = false;
                 state.pauseTime -= 1
             } 
             else if (state.pauseTime === 0) {
@@ -112,8 +113,8 @@ const timerSlice = createSlice({
         confirmSettings: (state) => {
             state.isWorking = false;
             state.isPausing = false;
-            state.workTime = state.workSetting * 60;
-            state.pauseTime = state.pauseSetting * 60;
+            state.workTime = 5;
+            state.pauseTime = 10;
 
         },
     },
