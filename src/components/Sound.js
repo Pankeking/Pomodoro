@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import beepSound from "./Beep-Sound.wav"
+import beepSound from "./beepSound.wav"
 import { resetTimerFinished } from "../redux/reducers";
 
 function Sound() {

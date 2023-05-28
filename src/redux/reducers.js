@@ -22,7 +22,8 @@ const timerSlice = createSlice({
             } else if (!state.isWorking && !state.isPausing && state.pauseTime > 0) {
                 state.isWorking = false;
                 state.isPausing = true;
-            } else if (state.pauseTime <= 0 && state.workTime <= 0) {
+            } 
+            else if (state.pauseTime <= 0 && state.workTime <= 0) {
                 resetTimer();
             }
         },
@@ -82,21 +83,30 @@ const timerSlice = createSlice({
         workIncrease: (state) => {
             if (state.workSetting < 60) {
                 state.workSetting += 1;
+                if (!state.isWorking) {
+                    state.workTime = state.workSetting * 60;
+                }
             }
         },
         workDecrease: (state) => {
             if (state.workSetting > 1) {
                 state.workSetting -= 1;
+            } if (!state.isWorking) {
+                state.workTime = state.workSetting * 60;
             }
         },
         pauseIncrease: (state) => {
             if (state.pauseSetting < 60) {
                 state.pauseSetting += 1;
+            } if (!state.isPausing) {
+                state.pauseTime = state.pauseSetting * 60;
             }
         },
         pauseDecrease: (state) => {
             if (state.pauseSetting > 1) {
                 state.pauseSetting -= 1;
+            } if (!state.isPausing) {
+                state.pauseTime = state.pauseSetting * 60;
             }
         },
         confirmSettings: (state) => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { flushSync } from "react-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { startTimer, stopTimer, resetTimer,
      tickTimer, tickPause, setTimerFinished
@@ -13,23 +13,14 @@ function Time() {
 
 
     const handleStart = () => {
-        flushSync(() => {
-            dispatch(startTimer());
-        })
+        dispatch(startTimer());
     }
     const handleStop = () => {
-        flushSync(() => {
-            dispatch(stopTimer());
-        })
+        dispatch(stopTimer());
     }
     const handleReset = () => {
-        flushSync(() => {
-            dispatch(resetTimer());
-        })
+        dispatch(resetTimer());
     }
-    
-   
-    
     
 
     useEffect(() => {
@@ -60,9 +51,13 @@ function Time() {
     }, [dispatch])
 
     const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${remainSeconds.toString().padStart(2, '0')}`;
+        if (seconds <= 0) {
+            return "00:00";
+        } else {
+            const minutes = Math.floor(seconds / 60);
+            const remainSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainSeconds.toString().padStart(2, '0')}`;
+        }
     }
 
     return (
