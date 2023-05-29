@@ -120,14 +120,6 @@ const timerSlice = createSlice({
                 state.pauseTime = state.pauseSetting * 60;
             }
         },
-        confirmSettings: (state) => {
-            state.isWorking = false;
-            state.isPausing = false;
-            state.workTime = 5;
-            state.pauseTime = 10;
-
-        },
-
     },
 });
 

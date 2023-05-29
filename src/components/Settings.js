@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { workIncrease, workDecrease,
-     pauseIncrease, pauseDecrease, confirmSettings } 
+     pauseIncrease, pauseDecrease } 
      from "../redux/reducers";
 
 function Settings() {
@@ -20,9 +20,6 @@ function Settings() {
     }
     const decreasePauseHandler = () => {
         dispatch(pauseDecrease());
-    }
-    const confirmSettingsHandler = () => {
-        dispatch(confirmSettings());
     }
 
     return (
