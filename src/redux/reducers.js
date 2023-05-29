@@ -48,22 +48,26 @@ const timerSlice = createSlice({
         tickTimer: (state) => {
             if (state.workTime > 0) {
                 state.workTime -= 1;
+                if (state.workTime === 0) {
+                    // Sound Beep
+                    state.timerFinished = true;
+                }
             } else if (state.workTime === 0) {
                 state.isWorking = false;
                 // Start Pause
                 state.isPausing = true;
-                // Sound Beep
-                state.timerFinished = true;
             }
         },
         tickPause: (state) => {
             if(state.pauseTime > 0) {
                 state.pauseTime -= 1
+                if (state.pauseTime === 0) {
+                    // Sound Beep
+                    state.timerFinished = true;
+                }
             } 
             else if (state.pauseTime === 0) {
                 state.isPausing = false;
-                // Sound Beep
-                state.timerFinished = true;
                 // Start Again
                 state.workTime = state.workSetting * 60;
                 state.pauseTime = state.pauseSetting * 60;
