@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import './index.css';
+
+// "@testing-library/react": "^13.4.0",
+// "@testing-library/react": "^13.4.0",
 
 ReactDOM.render(
   <React.StrictMode>

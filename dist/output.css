@@ -1,31 +1,3 @@
-@import '../node_modules/tailwindcss/base.css';
-@import '../node_modules/tailwindcss/components.css';
-@import '../node_modules/tailwindcss/utilities.css';
-
-
-*, ::before, ::after {
-  margin: 0;
-  padding: 0;
-  /* --openssl-legacy-provider
-  border: 1px solid white; */
-}
-
-body {
-  margin: 0;
-  background-color: black;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-
 /*
 ! tailwindcss v3.3.2 | MIT License | https://tailwindcss.com
 */
