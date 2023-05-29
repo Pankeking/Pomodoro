@@ -60,7 +60,7 @@ const timerSlice = createSlice({
                 // Start Pause
                 state.isPausing = true;
             }
-            state.workPercentage = (((state.workSetting * 60) - state.workTime) / (state.workSetting * 60)) * 100
+            state.workPercentage = (((state.workSetting * 60) - state.workTime) / (state.workSetting * 60)) * 100;
                                      
         },
         tickPause: (state) => {
@@ -78,7 +78,7 @@ const timerSlice = createSlice({
                 state.pauseTime = state.pauseSetting * 60;
                 state.isWorking = true;
             }
-            state.pausePercentage = (((state.pauseSetting * 60) - state.pauseTime) / (state.pauseSetting * 60)) * 100
+            state.pausePercentage = (((state.pauseSetting * 60) - state.pauseTime) / (state.pauseSetting * 60)) * 100;
         },
 
         // Sound
