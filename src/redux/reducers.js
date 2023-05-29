@@ -12,6 +12,8 @@ const timerSlice = createSlice({
         isWorking: false,
         isPausing: false,
         timerFinished: false,
+        workPercentage: 0,
+        pausePercentage: 0,
     },
     reducers: {
         // Main Timer Usage
@@ -37,7 +39,8 @@ const timerSlice = createSlice({
             state.isPausing = false;
 
             state.timerFinished = false;
-
+            state.workPercentage = 0;
+            state.pausePercentage = 0;
             state.workSetting = 25;
             state.pauseSetting = 5;
             state.workTime = state.workSetting * 60;
@@ -57,6 +60,8 @@ const timerSlice = createSlice({
                 // Start Pause
                 state.isPausing = true;
             }
+            state.workPercentage = (((state.workSetting * 60) - state.workTime) / (state.workSetting * 60)) * 100
+                                     
         },
         tickPause: (state) => {
             if(state.pauseTime > 0) {
@@ -73,6 +78,7 @@ const timerSlice = createSlice({
                 state.pauseTime = state.pauseSetting * 60;
                 state.isWorking = true;
             }
+            state.pausePercentage = (((state.pauseSetting * 60) - state.pauseTime) / (state.pauseSetting * 60)) * 100
         },
 
         // Sound
@@ -121,6 +127,7 @@ const timerSlice = createSlice({
             state.pauseTime = 10;
 
         },
+
     },
 });
 
