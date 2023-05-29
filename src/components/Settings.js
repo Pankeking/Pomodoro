@@ -27,7 +27,8 @@ function Settings() {
 
     return (
         <>
-             <h2>Settings</h2>
+            <h2>Settings</h2>
+
             <div>
                 <div id="session-label">
                     Work length
@@ -38,6 +39,8 @@ function Settings() {
                    <button id="session-decrement" onClick={decreaseWorkHandler}>-</button>
                 </div>
             </div>
+
+
             <div>
                 <div id="break-label">
                     Pause length
@@ -48,9 +51,11 @@ function Settings() {
                     <button id="break-decrement" onClick={decreasePauseHandler}>-</button>
                 </div>
             </div>
+
+
             <button className="mt-5 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-700"
                     onClick={confirmSettingsHandler}>
-                Confirm Settings
+                Testing Settings
             </button>
         </>
     );

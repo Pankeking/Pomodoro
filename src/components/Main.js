@@ -2,6 +2,7 @@ import React from "react";
 import Time from "./Time"
 import Settings from "./Settings";
 import Sound from "./Sound";
+import Tomato from "./Tomato";
 
 function Main() {
     return (
@@ -10,6 +11,9 @@ function Main() {
             <h1 className="text-teal-300 text-6xl font-bold">Pomodoro Timer</h1>
             <Time />
             <Settings />
+            <div className="flex">
+                <Tomato />
+            </div>
             <Sound />
         </div>
     );
